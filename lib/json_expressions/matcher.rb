@@ -163,7 +163,7 @@ module JsonExpressions
         return false
       end
 
-      matcher.keys.all? { |k| match_json make_path(path,k), matcher[k] , other[k.to_s] || other[k.to_sym] }
+      matcher.keys.all? { |k| match_json make_path(path,k), matcher[k] , (other.keys.include?(k.to_sym) ? other[k.to_sym] : other[k.to_s])  }
     end
 
     def set_last_error(path, message)

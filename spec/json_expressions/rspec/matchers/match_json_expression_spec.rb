@@ -98,6 +98,8 @@ module JsonExpressions
             l1_module:   Numeric,
             l1_wildcard: WILDCARD_MATCHER,
             l1_array:    ['l1: Hello world',1,true,nil,WILDCARD_MATCHER],
+            l1_true:     true,
+            l1_false:    false,
             l1_object:   {
               l2_string:   'Hi there!',
               l2_regexp:   /\A[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}\z/i,
@@ -122,6 +124,8 @@ module JsonExpressions
             l1_module:   1.1,
             l1_wildcard: true,
             l1_array:    ['l1: Hello world',1,true,nil,false],
+            l1_true:     true,
+            l1_false:    false,
             l1_object:   {
               l2_string:   'Hi there!',
               l2_regexp:   '1234-5678-1234-5678',
@@ -148,6 +152,8 @@ module JsonExpressions
             l1_module:   1.1,
             l1_wildcard: true,
             l1_array:    ['l1: Hello world',1,true,nil,false],
+            l1_true:     true,
+            l1_false:    false,
             l1_object:   {
               l2_string:   'Hi there!',
               l2_regexp:   '1234-5678-1234-5678',
@@ -168,12 +174,12 @@ module JsonExpressions
         end
 
         it "returns true when passed a matching JSON string" do
-          json_str = '{"l1_string":"Hello world!","l1_regexp":"0xC0FFEE","l1_module":1.1,"l1_wildcard":true,"l1_array":["l1: Hello world",1,true,null,false],"l1_object":{"l2_string":"Hi there!","l2_regexp":"1234-5678-1234-5678","l2_module":[1,2,3,4],"l2_wildcard":"Whatever","l2_array":["l2: Hello world",2,true,null,"Whatever"],"l2_object":{"l3_string":"Good day...","l3_regexp":"","l3_module":"This is like... inception!","l3_wildcard":null,"l3_array":["l3: Hello world",3,true,null,[]]}}}'
+          json_str = '{"l1_string":"Hello world!","l1_regexp":"0xC0FFEE","l1_module":1.1,"l1_wildcard":true,"l1_array":["l1: Hello world",1,true,null,false],"l1_true":true,"l1_false":false,"l1_object":{"l2_string":"Hi there!","l2_regexp":"1234-5678-1234-5678","l2_module":[1,2,3,4],"l2_wildcard":"Whatever","l2_array":["l2: Hello world",2,true,null,"Whatever"],"l2_object":{"l3_string":"Good day...","l3_regexp":"","l3_module":"This is like... inception!","l3_wildcard":null,"l3_array":["l3: Hello world",3,true,null,[]]}}}'
           @matcher.matches?(json_str).should be_true
         end
 
         it "returns false when passed a non-matching JSON string" do
-          json_str = '{"l1_string":"Hello world!","l1_regexp":"0xC0FFEE","l1_module":1.1,"l1_wildcard":true,"l1_array":["l1: Hello world",1,true,null,false],"l1_object":{"l2_string":"Hi there!","l2_regexp":"1234-5678-1234-5678","l2_module":[1,2,3,4],"l2_wildcard":"Whatever","l2_array":["l2: Hello world",2,true,null,"Whatever"],"l2_object":{"l3_string":"Good day...","l3_regexp":"","l3_module":"This is like... inception!","l3_wildcard":null,"l3_array":["***THIS SHOULD BREAK THINGS***",3,true,null,[]]}}}'
+          json_str = '{"l1_string":"Hello world!","l1_regexp":"0xC0FFEE","l1_module":1.1,"l1_wildcard":true,"l1_array":["l1: Hello world",1,true,null,false],"l1_true":true,"l1_false":false,"l1_object":{"l2_string":"Hi there!","l2_regexp":"1234-5678-1234-5678","l2_module":[1,2,3,4],"l2_wildcard":"Whatever","l2_array":["l2: Hello world",2,true,null,"Whatever"],"l2_object":{"l3_string":"Good day...","l3_regexp":"","l3_module":"This is like... inception!","l3_wildcard":null,"l3_array":["***THIS SHOULD BREAK THINGS***",3,true,null,[]]}}}'
           @matcher.matches?(json_str).should be_false
         end
       end
